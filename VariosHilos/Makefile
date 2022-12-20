@@ -1,6 +1,6 @@
 
 MergeSort: MergeSort.o
-	gcc MergeSort.o -o MergeSort
+	gcc -lpthread MergeSort.o -o MergeSort
 MergeSort.o: MergeSort.c
 	gcc -c MergeSort.c
 clean:
