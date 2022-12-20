@@ -115,10 +115,12 @@ void* hiloMerge(void* args) {
 		// Primero evaluaremos la parte de la izquierda desde L a M
 		struct indices iLeft = { p->l, m };
 		pthread_create(&threadIter, 0, hiloMerge, &iLeft);
+		pthread_join(threadIter, NULL);
 		hilos++;
 		// Luego evaluaremos la parte de la derecha desde M + 1 a R
 		struct indices iRight = { m + 1, p->r };
 		pthread_create(&threadIter, 0, hiloMerge, &iRight);
+		pthread_join(threadIter, NULL);
 		hilos++;
 		// Finalmente llamamos al metodo MergeSort
 		mergeSort(arr, p->l, m, p->r);
