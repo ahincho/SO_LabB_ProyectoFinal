@@ -117,7 +117,7 @@ int main() {
 	// Imprimimos el contenido original del arreglo
 	printArray(arr);
 	// Ordenaremos el arreglo entre los indices 0 y 5
-	merge(arr, 0, N);
+	merge(arr, 0, N - 1);
 	// Imprimimos el contenido de arreglo ya ordenado
 	printArray(arr);
 	return 0;
