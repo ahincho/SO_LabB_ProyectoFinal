@@ -9,7 +9,7 @@
 
 # include <stdio.h>
 # include <stdlib.h>
-# include <time.h>
+# include <sys/time.h>
 # define MILLION 1E+06
 # define N 100000
 # define LOWER 0
