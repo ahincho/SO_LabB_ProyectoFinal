@@ -151,7 +151,8 @@ int main() {
 	// Inicializamos la variable de tipo Mutex
 	pthread_mutex_init(&mutex, NULL);
 	// Incializamos los valores que queremos ordenar
-	struct indices* p = { 0, N };
+	int length = N;
+	struct indices* p = { 0, length - 1 };
 	// Inicializamos el arreglo con valores aleatorios
 	initArray(arr);
 	// Imprimimos el contenido original del arreglo
