@@ -160,6 +160,7 @@ int main() {
 	printArray(arr);
 	// Ordenaremos el arreglo entre los indices 0 y 5
 	pthread_create(&threadIter, 0, hiloMerge, &p);
+	pthread_join(threadIter, NULL);
 	// Imprimimos el contenido de arreglo ya ordenado
 	printArray(arr);
 	printf("Hilos Creados: %d\n", hilos);
