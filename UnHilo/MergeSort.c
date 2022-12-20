@@ -10,6 +10,7 @@
 # include <stdio.h>
 # include <stdlib.h>
 # include <sys/time.h>
+# include <time.h>
 # define MILLION 1E+06
 # define LOWER 0
 # define UPPER 10

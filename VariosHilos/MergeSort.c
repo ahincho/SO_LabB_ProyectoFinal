@@ -9,6 +9,7 @@
 # include <stdio.h>
 # include <stdlib.h>
 # include <sys/time.h>
+# include <time.h>
 # include <pthread.h>
 # define MILLION 1E+06
 # define N 100000
