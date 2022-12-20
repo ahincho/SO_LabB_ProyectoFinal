@@ -126,17 +126,15 @@ double timeDiff(struct timeval start, struct timeval end) {
 // Metodo Main del programa
 // Para ejecutarlo utilizar el formato: ./MergeSort nElems
 int main(int argc, char *argv[]) {
+	// Pediremos la cantidad de elementos como argumento al ejecutar
 	if (argc != 2) {
 		printf("Para ejecutar el programa seguir el formato:\n");
 		printf("\t./MergeSort nElems\n");
-		printf("Siendo 'nElems' la cantidad de elementos.\n");
+		printf("Siendo 'nElems' una cantidad entera de elementos.\n");
 		exit(EXIT_FAILURE);
 	}
 	// Se recibio el parametro de nElems correctamente
-	char c = *argv[argc - 1];
-	nElems = (*argv[argc - 1] - '0');
-	printf("C: %c\n", c);
-	printf("nElems: %d\n", nElems);
+	sscanf(argv[argc - 1], "%d", &nElems);
 	// Creamos un arreglo de enteros que vamos a arreglar
 	int arr[nElems];
 	// Variables auxiliares para la medicion del tiempo
