@@ -11,11 +11,11 @@
 # include <stdlib.h>
 # include <sys/time.h>
 # define MILLION 1E+06
-# define N 100000
 # define LOWER 0
 # define UPPER 10
 
-int nRecursivo = 0;
+int nElems = 0; // Cantidad de elementos aleatorios a ordenar
+int nRecursivo = 0; // Cantidad de llamadas recursivas al metodo
 
 void mergeSort(int arr[], int l, int m, int r) {
 	// Establecer las dimensiones para los nuevos
@@ -100,14 +100,14 @@ void merge(int arr[], int l, int r) {
 // con valores aleatorios entre el rango [LOWER, UPPER]
 void initArray(int a[]) {
 	srand(time(0));
-	for (int i = 0 ; i < N ; i++) {
+	for (int i = 0 ; i < nElems ; i++) {
 		a[i] = (rand() % (UPPER - LOWER + 1) + LOWER);
 	}
 }
 
 // Metodo que recibe un arreglo e imprime su contenido
 void printArray(int arr[]) {
-	for (int i = 0 ; i < N ; i++) {
+	for (int i = 0 ; i < nElems ; i++) {
 		printf("%d ", arr[i]);
 	}
 	printf("\n");
@@ -123,9 +123,21 @@ double timeDiff(struct timeval start, struct timeval end) {
 }
 
 // Metodo Main del programa
-int main() {
+// Para ejecutarlo utilizar el formato: ./MergeSort nElems
+int main(int argc, char *argv[]) {
+	if (argc != 2) {
+		printf("Para ejecutar el programa seguir el formato:\n");
+		printf("\t./MergeSort nElems\n");
+		printf("Siendo 'nElems' la cantidad de elementos.\n");
+		exit(EXIT_FAILURE);
+	}
+	// Se recibio el parametro de nElems correctamente
+	char c = *argv[argc - 1];
+	nElems = (*argv[argc - 1] - '0');
+	printf("C: %c\n", c);
+	printf("nElems: %d\n", nElems);
 	// Creamos un arreglo de enteros que vamos a arreglar
-	int arr[N];
+	int arr[nElems];
 	// Variables auxiliares para la medicion del tiempo
 	struct timeval start, end;
 	// Inicializamos el arreglo con valores aleatorios
@@ -134,11 +146,11 @@ int main() {
 	// printArray(arr); Ya no imprimimos porque usamos muchos elementos
 	// Ordenaremos el arreglo entre los indices 0 y 5
 	gettimeofday(&start, NULL);
-	merge(arr, 0, N - 1);
+	merge(arr, 0, nElems - 1);
 	gettimeofday(&end, NULL);
 	// Imprimimos el contenido de arreglo ya ordenado
 	// printArray(arr); Ya no imprimimos porque usamos muchos elementos
-	printf("Cantidad de Elementos Ordenados: %d.\n", N);
+	printf("Cantidad de Elementos Ordenados: %d.\n", nElems);
 	printf("Llamadas Recursivas: %d.\n", nRecursivo);
 	double diff = timeDiff(start, end);
 	printf("Metrica de Tiempo: %.2f MicroSegundos.\n", diff);
