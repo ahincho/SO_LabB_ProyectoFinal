@@ -12,12 +12,9 @@
 # include <time.h>
 # include <pthread.h>
 # define MILLION 1E+06
-# define N 100000
 # define LOWER 0
 # define UPPER 10
 
-// Creamos un arreglo de enteros que vamos a arreglar
-int arr[N];
 // Creamos una variable de tipo pthread_t para iterar
 pthread_t threadIter;
 // Variable de tipo Mutex para cuidar las posibles SC
@@ -25,6 +22,10 @@ pthread_mutex_t mutex;
 // Creamos una variable para contabilizar la cantidad
 // de hilos que se han creado para realizar MergeSort
 int nHilos = 0;
+// Cantidad de elementos aleatorios a ordenar
+int nElems = 0;
+// Puntero al arreglo de elementos con nElems ha crear
+int* sharedArr;
 
 // Estructura que contiene los valores de los indices
 struct indices {
@@ -125,7 +126,7 @@ void* hiloMerge(void* args) {
 		pthread_create(&threadIter, 0, hiloMerge, &iRight);
 		pthread_join(threadIter, NULL);
 		// Finalmente llamamos al metodo MergeSort
-		mergeSort(arr, p->l, m, p->r);
+		mergeSort(sharedArr, p->l, m, p->r);
 	} else {
 		// En caso sea lo suficientemente pequenio y no se necesite
 		// dividir para ordenar entonces debemos terminar el hilo
@@ -137,14 +138,14 @@ void* hiloMerge(void* args) {
 // con valores aleatorios entre el rango [LOWER, UPPER]
 void initArray(int a[]) {
 	srand(time(0));
-	for (int i = 0 ; i < N ; i++) {
+	for (int i = 0 ; i < nElems ; i++) {
 		a[i] = (rand() % (UPPER - LOWER + 1) + LOWER);
 	}
 }
 
 // Metodo que recibe un arreglo e imprime su contenido
 void printArray(int arr[]) {
-	for (int i = 0 ; i < N ; i++) {
+	for (int i = 0 ; i < nElems ; i++) {
 		printf("%d ", arr[i]);
 	}
 	printf("\n");
@@ -160,15 +161,28 @@ double timeDiff(struct timeval start, struct timeval end) {
 }
 
 // Metodo Main del programa
-int main() {
+// Para ejecutarlo utilizar el formato: ./MergeSort nElems
+int main(int argc, char *argv[]) {
+	// Pediremos la cantidad de elementos como argumento al ejecutar
+	if (argc != 2) {
+		printf("Para ejecutar el programa seguir el formato:\n");
+		printf("\t./MergeSort nElems\n");
+		printf("Siendo 'nElems' una cantidad entera de elementos.\n");
+		exit(EXIT_FAILURE);
+	}
+	// Se recibio el parametro de nElems correctamente
+	sscanf(argv[argc - 1], "%d", &nElems);
+	// Creamos un arreglo de nElems
+	sharedArr = (int *) calloc(nElems, sizeof(int));
+	// Asignamos el puntero a la variable compartida
 	// Inicializamos la variable de tipo Mutex
 	pthread_mutex_init(&mutex, NULL);
 	// Variables auxiliares para la medicion del tiempo
 	struct timeval start, end;
 	// Incializamos los valores que queremos ordenar
-	struct indices p = { 0, N - 1 };
+	struct indices p = { 0, nElems - 1 };
 	// Inicializamos el arreglo con valores aleatorios
-	initArray(arr);
+	initArray(sharedArr);
 	// Imprimimos el contenido original del arreglo
 	// printArray(arr); Ya no imprimimos porque usamos muchos elementos
 	// Ordenaremos el arreglo entre los indices 0 y 5
@@ -179,7 +193,7 @@ int main() {
 	gettimeofday(&end, NULL);
 	// Imprimimos el contenido de arreglo ya ordenado
 	// printArray(arr); Ya no imprimimos porque usamos muchos elementos
-	printf("Cantidad de Elementos Ordenados: %d\n", N);
+	printf("Cantidad de Elementos Ordenados: %d\n", nElems);
 	printf("Hilos Creados: %d\n", nHilos);
 	double diff = timeDiff(start, end);
 	printf("Metrica de Tiempo: %.2f MicroSegundos.\n", diff);
