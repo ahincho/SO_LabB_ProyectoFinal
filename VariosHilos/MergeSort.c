@@ -113,12 +113,12 @@ void* hiloMerge(void* args) {
 		int m = p->l + (p->r - p->l) / 2;
 		// Dividimos en dos secciones mas pequenias a ordenar
 		// Primero evaluaremos la parte de la izquierda desde L a M
-		struct indices* iLeft = { p->l, m };
-		pthread_create(&threadIter, 0, hiloMerge, iLeft);
+		struct indices iLeft = { p->l, m };
+		pthread_create(&threadIter, 0, hiloMerge, &iLeft);
 		hilos++;
 		// Luego evaluaremos la parte de la derecha desde M + 1 a R
-		struct indices* iRight = { m + 1, p->r };
-		pthread_create(&threadIter, 0, hiloMerge, iRight);
+		struct indices iRight = { m + 1, p->r };
+		pthread_create(&threadIter, 0, hiloMerge, &iRight);
 		hilos++;
 		// Finalmente llamamos al metodo MergeSort
 		mergeSort(arr, p->l, m, p->r);
@@ -151,14 +151,13 @@ int main() {
 	// Inicializamos la variable de tipo Mutex
 	pthread_mutex_init(&mutex, NULL);
 	// Incializamos los valores que queremos ordenar
-	int length = N;
-	struct indices* p = { 0, length - 1 };
+	struct indices p = { 0, N - 1 };
 	// Inicializamos el arreglo con valores aleatorios
 	initArray(arr);
 	// Imprimimos el contenido original del arreglo
 	printArray(arr);
 	// Ordenaremos el arreglo entre los indices 0 y 5
-	pthread_create(&threadIter, 0, hiloMerge, p);
+	pthread_create(&threadIter, 0, hiloMerge, &p);
 	// Imprimimos el contenido de arreglo ya ordenado
 	printArray(arr);
 	return 0;
