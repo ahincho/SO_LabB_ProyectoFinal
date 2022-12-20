@@ -10,9 +10,12 @@
 # include <stdio.h>
 # include <stdlib.h>
 # include <time.h>
-# define N 6
+# define MILLION 1E+06
+# define N 100000
 # define LOWER 0
 # define UPPER 10
+
+int nRecursivo = 0;
 
 void mergeSort(int arr[], int l, int m, int r) {
 	// Establecer las dimensiones para los nuevos
@@ -77,6 +80,8 @@ void mergeSort(int arr[], int l, int m, int r) {
 
 // Algoritmo Recursivo para MergeSort
 void merge(int arr[], int l, int r) {
+	// Aumentamos el contador de las llamadas recursivas
+	nRecursivo++;
 	// Mientras que el valor del indice L sea menor que R
 	if (l < r) {
 		// Calculamos la posicion o indice medio del arreglo
@@ -108,17 +113,34 @@ void printArray(int arr[]) {
 	printf("\n");
 }
 
+// Metodo que recibe dos momentos y retorna la diferencia
+// El tiempo se medira en MicroSegundos
+double timeDiff(struct timeval start, struct timeval end) {
+	// Diferencia en tiempo es diff = seconds + microSeconds
+	double s = (end.tv_sec - start.tv_sec) * MILLION;
+	double ms = (end.tv_usec- start.tv_usec);
+	return (s + ms);
+}
+
 // Metodo Main del programa
 int main() {
 	// Creamos un arreglo de enteros que vamos a arreglar
 	int arr[N];
+	// Variables auxiliares para la medicion del tiempo
+	struct timeval start, end;
 	// Inicializamos el arreglo con valores aleatorios
 	initArray(arr);
 	// Imprimimos el contenido original del arreglo
-	printArray(arr);
+	// printArray(arr); Ya no imprimimos porque usamos muchos elementos
 	// Ordenaremos el arreglo entre los indices 0 y 5
+	gettimeofday(&start, NULL);
 	merge(arr, 0, N - 1);
+	gettimeofday(&end, NULL);
 	// Imprimimos el contenido de arreglo ya ordenado
-	printArray(arr);
+	// printArray(arr); Ya no imprimimos porque usamos muchos elementos
+	printf("Cantidad de Elementos Ordenados: %d.\n", N);
+	printf("Llamadas Recursivas: %d.\n", nRecursivo);
+	double diff = timeDiff(start, end);
+	printf("Metrica de Tiempo: %.2f MicroSegundos.\n", diff);
 	return 0;
 }

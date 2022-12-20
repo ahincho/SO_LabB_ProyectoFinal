@@ -10,7 +10,8 @@
 # include <stdlib.h>
 # include <time.h>
 # include <pthread.h>
-# define N 10
+# define MILLION 1E+06
+# define N 100000
 # define LOWER 0
 # define UPPER 10
 
@@ -22,7 +23,7 @@ pthread_t threadIter;
 pthread_mutex_t mutex;
 // Creamos una variable para contabilizar la cantidad
 // de hilos que se han creado para realizar MergeSort
-int hilos = 0;
+int nHilos = 0;
 
 // Estructura que contiene los valores de los indices
 struct indices {
@@ -107,6 +108,8 @@ void mergeSort(int arr[], int l, int m, int r) {
 void* hiloMerge(void* args) {
 	// Recibiendo el parametro que contiene los indices
 	struct indices* p = (struct indices *) args;
+	// Aumentamos el contador de los hilos creados
+	nHilos++;
 	// Mientras que el valor del indice L sea menor que R
 	if (p->l < p->r) {
 		// Calculamos la posicion o indice del medio del arreglo
@@ -116,12 +119,10 @@ void* hiloMerge(void* args) {
 		struct indices iLeft = { p->l, m };
 		pthread_create(&threadIter, 0, hiloMerge, &iLeft);
 		pthread_join(threadIter, NULL);
-		hilos++;
 		// Luego evaluaremos la parte de la derecha desde M + 1 a R
 		struct indices iRight = { m + 1, p->r };
 		pthread_create(&threadIter, 0, hiloMerge, &iRight);
 		pthread_join(threadIter, NULL);
-		hilos++;
 		// Finalmente llamamos al metodo MergeSort
 		mergeSort(arr, p->l, m, p->r);
 	} else {
@@ -148,21 +149,38 @@ void printArray(int arr[]) {
 	printf("\n");
 }
 
+// Metodo que recibe dos momentos y retorna la diferencia
+// El tiempo se medira en MicroSegundos
+double timeDiff(struct timeval start, struct timeval end) {
+	// Diferencia en tiempo es diff = seconds + microSeconds
+	double s = (end.tv_sec - start.tv_sec) * MILLION;
+	double ms = (end.tv_usec- start.tv_usec);
+	return (s + ms);
+}
+
 // Metodo Main del programa
 int main() {
 	// Inicializamos la variable de tipo Mutex
 	pthread_mutex_init(&mutex, NULL);
+	// Variables auxiliares para la medicion del tiempo
+	struct timeval start, end;
 	// Incializamos los valores que queremos ordenar
 	struct indices p = { 0, N - 1 };
 	// Inicializamos el arreglo con valores aleatorios
 	initArray(arr);
 	// Imprimimos el contenido original del arreglo
-	printArray(arr);
+	// printArray(arr); Ya no imprimimos porque usamos muchos elementos
 	// Ordenaremos el arreglo entre los indices 0 y 5
+	gettimeofday(&start, NULL);
+	// Creando un primer hilo para llamar a hiloMerge()
 	pthread_create(&threadIter, 0, hiloMerge, &p);
 	pthread_join(threadIter, NULL);
+	gettimeofday(&end, NULL);
 	// Imprimimos el contenido de arreglo ya ordenado
-	printArray(arr);
-	printf("Hilos Creados: %d\n", hilos);
+	// printArray(arr); Ya no imprimimos porque usamos muchos elementos
+	printf("Cantidad de Elementos Ordenados: %d\n", N);
+	printf("Hilos Creados: %d\n", nHilos);
+	double diff = timeDiff(start, end);
+	printf("Metrica de Tiempo: %.2f MicroSegundos.\n", diff);
 	return 0;
 }
