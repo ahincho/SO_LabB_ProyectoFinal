@@ -7,9 +7,9 @@
 * @Descripcion: Algoritmo MergeSort Recursivo
 */
 
-#include <stdio.h>
+# include <stdio.h>
 
-void mergesort(int arr[], int l, int m, int r) {
+void mergeSort(int arr[], int l, int m, int r) {
 	// Establecer las dimensiones para los nuevos
 	// arreglos tanto para izquierda como para derecha
 	int nLeft = m - l + 1;
@@ -82,13 +82,20 @@ void merge(int arr[], int l, int r) {
 		// Luego evaluaremos la parte de la derecha desde M + 1 a R
 		merge(arr, m + 1, r);
 		// Finalmente llamamos al metodo MergeSort 
-		mergesort(arr, l, m, r);
+		mergeSort(arr, l, m, r);
 	}
 }
 
+// Metodo que recibe un arreglo de enteros y calcula su longitud
+int length(int arr[]) {
+	// Dividimos su tamanio por el tamanio que ocupa un entero
+	return (int) (sizeof(arr) / sizeof(int));
+}
+
 // Metodo que recibe un arreglo e imprime su contenido
-void print(int arr[]) {
-	for (int i = 0 ; i < 6 ; i++)
+void printArray(int arr[]) {
+	int l = length(arr);
+	for (int i = 0 ; i < l ; i++)
 		printf("%d ", arr[i]);
 	printf("\n");
 }
@@ -98,10 +105,10 @@ int main() {
 	// Creamos un arreglo de enteros que vamos a arreglar
 	int arr[] = { 12, 11, 13, 5, 6, 7 };
 	// Imprimimos el contenido original del arreglo
-	print(arr);
+	printArray(arr);
 	// Ordenaremos el arreglo entre los indices 0 y 5
-	merge(arr, 0, 5);
+	merge(arr, 0, length(arr));
 	// Imprimimos el contenido de arreglo ya ordenado
-	print(arr);
+	printArray(arr);
 	return 0;
 }
