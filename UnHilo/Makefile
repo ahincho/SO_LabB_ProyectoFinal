@@ -4,4 +4,4 @@ MergeSort: MergeSort.o
 MergeSort.o: MergeSort.c
 	gcc -c MergeSort.c
 clean:
-	rm *.o *.exe *.so
+	rm *.o *.exe

@@ -8,6 +8,11 @@
 */
 
 # include <stdio.h>
+# include <stdlib.h>
+# include <time.h>
+# define N 6
+# define LOWER 0
+# define UPPER 10
 
 void mergeSort(int arr[], int l, int m, int r) {
 	// Establecer las dimensiones para los nuevos
@@ -86,28 +91,33 @@ void merge(int arr[], int l, int r) {
 	}
 }
 
-// Metodo que recibe un arreglo de enteros y calcula su longitud
-int length(int arr[]) {
-	// Dividimos su tamanio por el tamanio que ocupa un entero
-	return (int) (sizeof(arr) / sizeof(int));
+// Metodo que recibe un array de enteros y no inicializa
+// con valores aleatorios entre el rango [LOWER, UPPER]
+void initArray(int a[]) {
+	srand(time(0));
+	for (int i = 0 ; i < N ; i++) {
+		a[i] = (rand() % (UPPER - LOWER + 1) + LOWER);
+	}
 }
 
 // Metodo que recibe un arreglo e imprime su contenido
 void printArray(int arr[]) {
-	int l = length(arr);
-	for (int i = 0 ; i < l ; i++)
+	for (int i = 0 ; i < N ; i++) {
 		printf("%d ", arr[i]);
+	}
 	printf("\n");
 }
 
 // Metodo Main del programa
 int main() {
 	// Creamos un arreglo de enteros que vamos a arreglar
-	int arr[] = { 12, 11, 13, 5, 6, 7 };
+	int arr[N];
+	// Inicializamos el arreglo con valores aleatorios
+	initArray(arr);
 	// Imprimimos el contenido original del arreglo
 	printArray(arr);
 	// Ordenaremos el arreglo entre los indices 0 y 5
-	merge(arr, 0, length(arr));
+	merge(arr, 0, N);
 	// Imprimimos el contenido de arreglo ya ordenado
 	printArray(arr);
 	return 0;
