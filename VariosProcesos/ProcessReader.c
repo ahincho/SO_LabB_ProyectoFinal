@@ -14,10 +14,11 @@
 # include <stdio.h>
 # define N 10
 # define PERMISSIONS 00666
+# define TERMINAL "./bin/ls"
 # define PORT 34
 
 int main() {
-    int key = ftok("./bin/ls", PORT);
+    key_t key = ftok(TERMINAL, PORT);
     int shmid = shmget(key, sizeof(int *) * N, PERMISSIONS | IPC_EXCL);
     int* arr = shmat(shmid, NULL, 0);
     for (int i = 0 ; i < N ; i++) {
