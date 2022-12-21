@@ -66,13 +66,13 @@ int* leerArrayCompartido() {
         printf("Error al recuperar estructura msArrSt.\n");
         exit(EXIT_FAILURE);
     }
-    int* ptr = mmap(NULL, msArrSt.st_size, PROT_READ, MAP_SHARED, fileDesc, 0);
+    int** ptr = mmap(NULL, msArrSt.st_size, PROT_READ, MAP_SHARED, fileDesc, 0);
     if (ptr == MAP_FAILED) {
         printf("Error al mapear el objeto compartido.\n");
         exit(EXIT_FAILURE);
     } 
     close(fileDesc);
-    return ptr;
+    return &ptr;
 }
 
 # endif
