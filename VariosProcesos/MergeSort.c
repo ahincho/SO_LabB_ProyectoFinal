@@ -1,4 +1,13 @@
 
+/*
+* @Autor: Hincho Jove, Angel Eduardo
+* @Email: ahincho@unsa.edu.pe
+* @File: MergeSort.c
+* @Descripcion: Algoritmo MergeSort con Varios Procesos
+* - Nota: Se intento pero surgieron problemas al recuperar
+*   la variable compartida entre los procesos 'mySharedArray'
+*/
+
 # include <stdio.h>
 # include <stdlib.h>
 # include <sys/mman.h>
@@ -36,7 +45,7 @@ int crearArrayCompartido(int bSize) {
     return fileDesc;
 }
 
-void escribirArrayCompartido(int* write) {
+void escribirArrayCompartido(int write) {
     int fileDesc = shm_open(MSARR_NAME, O_RDWR, 0);
     int* ptr;
     if (fileDesc == -1) {
