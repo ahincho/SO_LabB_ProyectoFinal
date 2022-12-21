@@ -60,7 +60,7 @@ void recuperarArrayCompartido() {
         printf("Error al mapear el objeto compartido.\n");
         exit(EXIT_FAILURE);
     } 
-    printf("Valor en Memo Compartida: %d.\n", ptr);
+    printf("Valor en Memo Compartida: %d.\n", *ptr);
     close(fileDesc);
 }
 
