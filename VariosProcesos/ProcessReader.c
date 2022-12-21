@@ -12,7 +12,7 @@
 # include <sys/shm.h>
 # include <stdio.h>
 # define N 10
-# define TERMINAL "."
+# define TERMINAL '.'
 # define PORT 34
 
 int main() {
