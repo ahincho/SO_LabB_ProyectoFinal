@@ -8,9 +8,13 @@
 # include <sys/types.h>
 # include <string.h>
 # include <fcntl.h>
+# include <sys/time.h>
+# include <time.h>
 
 # define MSARR_NAME "/mySharedArray"
 # define PERMISSIONS 00600
+# define LOWER 0
+# define UPPER 10
 
 // Cantidad de elementos aleatorios a ordenar
 int nElems = 0;
@@ -48,6 +52,23 @@ void escribirArrayCompartido(int* write) {
     close(fileDesc);
 }
 
+// Metodo que recibe un array de enteros y no inicializa
+// con valores aleatorios entre el rango [LOWER, UPPER]
+void initArray(int a[]) {
+	srand(time(0));
+	for (int i = 0 ; i < nElems ; i++) {
+		a[i] = (rand() % (UPPER - LOWER + 1) + LOWER);
+	}
+}
+
+// Metodo que recibe un arreglo e imprime su contenido
+void printArray(int arr[]) {
+	for (int i = 0 ; i < nElems ; i++) {
+		printf("%d ", arr[i]);
+	}
+	printf("\n");
+}
+
 int* leerArrayCompartido() {
     struct stat msArrSt;
     int fileDesc = shm_open(MSARR_NAME, O_RDONLY, 0);
@@ -68,23 +89,6 @@ int* leerArrayCompartido() {
     printArray(*ptr);
     close(fileDesc);
     return ptr;
-}
-
-// Metodo que recibe un array de enteros y no inicializa
-// con valores aleatorios entre el rango [LOWER, UPPER]
-void initArray(int a[]) {
-	srand(time(0));
-	for (int i = 0 ; i < nElems ; i++) {
-		a[i] = (rand() % (UPPER - LOWER + 1) + LOWER);
-	}
-}
-
-// Metodo que recibe un arreglo e imprime su contenido
-void printArray(int arr[]) {
-	for (int i = 0 ; i < nElems ; i++) {
-		printf("%d ", arr[i]);
-	}
-	printf("\n");
 }
 
 // Metodo Main del programa
