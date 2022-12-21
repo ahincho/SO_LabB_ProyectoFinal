@@ -71,8 +71,6 @@ int* leerArrayCompartido() {
         printf("Error al mapear el objeto compartido.\n");
         exit(EXIT_FAILURE);
     } 
-    printf("Valor en Memo Compartida:.\n");
-    printArray(ptr);
     close(fileDesc);
     return ptr;
 }

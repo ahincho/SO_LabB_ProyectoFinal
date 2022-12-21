@@ -57,5 +57,6 @@ int main(int argc, char *argv[]) {
     // Escribimos en la memoria compartida
     escribirArrayCompartido(arr);
     // Cerramos el acceso o conexion el FileDescriptor
-    leerArrayCompartido();
+    int[] b = leerArrayCompartido();
+    printArray(b);
 }
