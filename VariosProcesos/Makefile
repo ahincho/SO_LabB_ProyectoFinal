@@ -1,8 +1,8 @@
 
 MergeSort: MergeSort.o ProcessWritter.o ProcessReader.o
 	gcc MergeSort.o -o MergeSort
-	gcc ProcessWritter.o -o ProcessWritter
-	gcc ProcessReader.o -o ProcessReader
+	gcc ProcessWritter.o -o ProcessWritter -lrt
+	gcc ProcessReader.o -o ProcessReader -lrt
 MergeSort.o: MergeSort.c
 	gcc -c MergeSort.c
 ProcessWritter.o: ProcessWritter.c
