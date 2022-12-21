@@ -190,7 +190,7 @@ int main(int argc, char *argv[]) {
 	// Inicializamos el arreglo con valores aleatorios
 	initArray(sharedArr);
 	// Imprimimos el contenido original del arreglo
-	// printArray(arr); Ya no imprimimos porque usamos muchos elementos
+	// printArray(sharedArr); Ya no imprimimos porque usamos muchos elementos
 	// Ordenaremos el arreglo entre los indices 0 y 5
 	gettimeofday(&start, NULL);
 	// Creando un primer hilo para llamar a hiloMerge()
@@ -198,9 +198,10 @@ int main(int argc, char *argv[]) {
 	pthread_join(threadIter, NULL);
 	gettimeofday(&end, NULL);
 	// Imprimimos el contenido de arreglo ya ordenado
-	// printArray(arr); Ya no imprimimos porque usamos muchos elementos
-	printf("Cantidad de Elementos Ordenados: %d\n", nElems);
-	printf("Hilos Creados: %d\n", nHilos);
+	// printArray(sharedArr); Ya no imprimimos porque usamos muchos elementos
+	printf("Cantidad de Elementos Ordenados: %d.\n", nElems);
+	printf("Hilos Creados: %d.\n", nHilos);
+	printf("Llamadas al metodo MergeSort: %d.\n", calls);
 	double diff = timeDiff(start, end);
 	printf("Metrica de Tiempo: %.2f MicroSegundos.\n", diff);
 	return 0;
