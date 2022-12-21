@@ -54,7 +54,7 @@ int main(int argc, char *argv[]) {
     // Inicializar el arreglo de enteros aleatorios
     initArray(arr);
     // Creando un FileDescriptor de memoria compartida
-    int fd = crearArrayCompartido(sizeof(arr));
+    int fd = crearArrayCompartido(nElems * sizeof(int));
     // Escribimos en la memoria compartida
     escribirArrayCompartido(arr);
     // Cerramos el acceso o conexion el FileDescriptor
