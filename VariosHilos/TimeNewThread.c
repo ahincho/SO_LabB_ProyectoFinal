@@ -47,6 +47,6 @@ int main() {
 	gettimeofday(&end, NULL);
 	// Calculando el tiempo para crear un unico hilo
 	double diff = timeDiff(start, end);
-	printf("Tiempo para crear %d Thread: %.2f MicroSegundos.\n", diff);
+	printf("Tiempo para crear un Thread: %.2f MicroSegundos.\n", diff);
 	return 0;
 }
