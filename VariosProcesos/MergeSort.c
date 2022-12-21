@@ -10,16 +10,19 @@
 # define MSARR_NAME "/mySharedArray"
 # define PERMISSIONS 00600
 
-int main() {
-    int fd; // File Descriptor para el objeto compartido
-    fd = shm_open(MSARR_NAME, O_CREAT | O_RDWR, PERMISSIONS);
+void crearArrayCompartido(int fileDesc, int bSize) {
+    // File Descriptor para el objeto compartido
+    fileDesc = shm_open(MSARR_NAME, O_CREAT | O_RDWR, PERMISSIONS);
     if (fd == -1) {
         printf("Error al crear el objeto compartido.\n");
         exit(EXIT_FAILURE);
     }
-    int byteSz = 200;
-    if (ftruncate(fd, byteSz) == -1) {
+    if (ftruncate(fd, bSize) == -1) {
         printf("Error al reservar espacio para el objeto compartido.\n");
         exit(EXIT_FAILURE);
     }
+}
+
+int main() {
+    crearArrayCompartido(MSARR_NAME, 100);
 }
