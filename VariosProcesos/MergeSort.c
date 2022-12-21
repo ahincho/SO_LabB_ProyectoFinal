@@ -53,6 +53,7 @@ int main(int argc, char *argv[]) {
     int* b = (int *) calloc(nElems, sizeof(int));
     // Inicializar el arreglo de enteros aleatorios
     initArray(arr);
+    printArray(arr);
     // Creando un FileDescriptor de memoria compartida
     int fd = crearArrayCompartido(nElems * sizeof(int));
     // Escribimos en la memoria compartida
