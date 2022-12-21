@@ -24,5 +24,6 @@ void crearArrayCompartido(int fileDesc, int bSize) {
 }
 
 int main() {
-    crearArrayCompartido(MSARR_NAME, 100);
+    int fd;
+    crearArrayCompartido(fd, 100);
 }
