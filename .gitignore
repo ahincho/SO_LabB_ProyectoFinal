@@ -3,5 +3,5 @@
 *.vscode
 *.exe
 *.o
-MergeSort.*
-TimeNewThread.*
+MergeSort
+TimeNewThread
