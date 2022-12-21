@@ -12,12 +12,12 @@
 # include <sys/shm.h>
 # include <stdio.h>
 # define N 10
-# define TERMINAL '.'
+# define TERMINAL "/bin/ls"
 # define PORT 34
 
 int main() {
     key_t key = ftok(TERMINAL, PORT);
-    int shmid = shmget(key, (int) sizeof(int) * N, IPC_EXCL);
+    int shmid = shmget(key, (int) sizeof(int) * N, PERMISSIONS | IPC_CREAT);
     int* arr = shmat(shmid, 0, SHM_RDONLY);
     for (int i = 0 ; i < N ; i++) {
         printf("%d \n", arr[i]);
