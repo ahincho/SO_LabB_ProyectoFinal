@@ -139,6 +139,8 @@ int main(int argc, char *argv[]) {
 	int arr[nElems];
 	// Variables auxiliares para la medicion del tiempo
 	struct timeval start, end;
+	// Mensaje de bienvenida y descripcion del programa
+	printf("Programa con un Unico Hilo y Recursivo.\n");
 	// Inicializamos el arreglo con valores aleatorios
 	initArray(arr);
 	// Imprimimos el contenido original del arreglo
