@@ -11,6 +11,7 @@
 # include <sys/ipc.h>
 # include <sys/shm.h>
 # include <sys/types.h>
+# include <stdlib.h>
 # include <stdio.h>
 # define N 10
 # define TERMINAL "/bin/ls"
