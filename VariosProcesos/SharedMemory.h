@@ -72,7 +72,7 @@ int** leerArrayCompartido() {
         exit(EXIT_FAILURE);
     } 
     close(fileDesc);
-    return &ptr;
+    return ptr;
 }
 
 # endif
