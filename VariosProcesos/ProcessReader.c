@@ -14,6 +14,7 @@
 # define N 10
 # define TERMINAL "/bin/ls"
 # define PORT 34
+# define PERMISSIONS 0600
 
 int main() {
     key_t key = ftok(TERMINAL, PORT);
