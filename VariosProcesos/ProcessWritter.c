@@ -18,13 +18,13 @@
 
 struct sharedArray {
     int m[N];
-}
+};
 
 int main() {
     key_t key = ftok(TERMINAL, PORT);
     int shmid = shmget(key, sizeof(struct sharedArray), PERMISSIONS | IPC_CREAT);
     printf("OK1\n");
-    void* arr = (struct sharedArray *) shmat(shmid, 0, 0);
+    struct sharedArray* arr = (struct sharedArray *) shmat(shmid, 0, 0);
     for (int i = 0 ; i < N ; i++) {
         arr->m[i] = i;
     }
