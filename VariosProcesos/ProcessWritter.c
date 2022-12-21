@@ -22,7 +22,6 @@ struct sharedArray {
 
 int main() {
     key_t key = ftok(TERMINAL, PORT);
-    printf("Size: %d\n", sizeof(struct sharedArray));
     int shmid = shmget(key, sizeof(struct sharedArray), PERMISSIONS | IPC_CREAT);
     printf("OK1\n");
     void* arr = (struct sharedArray *) shmat(shmid, 0, 0);
@@ -30,7 +29,7 @@ int main() {
         arr->m[i] = i;
     }
     for (int i = 0 ; i < N ; i++) {
-        printf("%d ", arr->arr[i]);
+        printf("%d ", arr->m[i]);
     }
     printf("\nSe escribio en memoria compartida!\n");
     shmdt((void *) arr);
