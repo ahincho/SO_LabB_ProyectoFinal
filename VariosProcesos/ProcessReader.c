@@ -24,5 +24,6 @@ int main() {
         printf("%d \n", arr[i]);
     }
     shmdt((void *) arr);
+    shmctl(shmid, IPC_RMID, 0);
     return 0;
 }
