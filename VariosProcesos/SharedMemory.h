@@ -55,7 +55,7 @@ void escribirArrayCompartido(int* write) {
     close(fileDesc);
 }
 
-int* leerArrayCompartido() {
+int** leerArrayCompartido() {
     struct stat msArrSt;
     int fileDesc = shm_open(MSARR_NAME, O_RDONLY, 0);
     if (fileDesc == -1) {
@@ -72,7 +72,7 @@ int* leerArrayCompartido() {
         exit(EXIT_FAILURE);
     } 
     close(fileDesc);
-    return ptr;
+    return &ptr;
 }
 
 # endif
