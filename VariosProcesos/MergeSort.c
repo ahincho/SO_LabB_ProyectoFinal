@@ -51,7 +51,7 @@ void recuperarArrayCompartido() {
         printf("Error al recuperar el objeto compartido.\n");
         exit(EXIT_FAILURE);
     }
-    if (fstat(fileDesc, &mysarrSt) == -1) {
+    if (fstat(fileDesc, &msArrSt) == -1) {
         printf("Error al recuperar estructura msArrSt.\n");
         exit(EXIT_FAILURE);
     }
