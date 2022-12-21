@@ -177,7 +177,7 @@ int main(int argc, char *argv[]) {
 	// Se recibio el parametro de nElems correctamente
 	sscanf(argv[argc - 1], "%d", &nElems);
 	// Mensaje de bienvenida y descripcion del programa
-	printf("Programa con Varios Hilos y Recursivo.\n");
+	printf("Programa con Varios Hilos No Recursivo.\n");
 	// Creamos un arreglo de nElems
 	sharedArr = (int *) calloc(nElems, sizeof(int));
 	// Asignamos el puntero a la variable compartida
