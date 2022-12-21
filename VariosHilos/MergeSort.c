@@ -22,6 +22,8 @@ pthread_mutex_t mutex;
 // Creamos una variable para contabilizar la cantidad
 // de hilos que se han creado para realizar MergeSort
 int nHilos = 0;
+// Cantidad de llamadas a la funcion mergeSort
+int calls = 0;
 // Cantidad de elementos aleatorios a ordenar
 int nElems = 0;
 // Puntero al arreglo de elementos con nElems ha crear
@@ -127,6 +129,8 @@ void* hiloMerge(void* args) {
 		pthread_join(threadIter, NULL);
 		// Finalmente llamamos al metodo MergeSort
 		mergeSort(sharedArr, p->l, m, p->r);
+		// Aumentamos la cantidad de veces que hemos llamados al metodo
+		calls++;
 	} else {
 		// En caso sea lo suficientemente pequenio y no se necesite
 		// dividir para ordenar entonces debemos terminar el hilo
