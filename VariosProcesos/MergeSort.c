@@ -11,7 +11,11 @@
 
 # define MSARR_NAME "/mySharedArray"
 # define PERMISSIONS 00600
-# define SIZE 100
+
+// Cantidad de elementos aleatorios a ordenar
+int nElems = 0;
+// Puntero al arreglo de elementos con nElems ha crear
+int* arr;
 
 int crearArrayCompartido(int bSize) {
     // File Descriptor para el objeto compartido
@@ -28,9 +32,8 @@ int crearArrayCompartido(int bSize) {
     return fileDesc;
 }
 
-void escribirArrayCompartido() {
+void escribirArrayCompartido(int* write) {
     int fileDesc = shm_open(MSARR_NAME, O_RDWR, 0);
-    int i = 15;
     int* ptr;
     if (fileDesc == -1) {
         printf("Error al recuperar el objeto compartido.\n");
@@ -41,11 +44,11 @@ void escribirArrayCompartido() {
         printf("Error al mapear el objeto compartido.\n");
         exit(EXIT_FAILURE);
     }
-    memcpy(ptr, &i, sizeof(int));
+    memcpy(ptr, &write, sizeof(int));
     close(fileDesc);
 }
 
-void recuperarArrayCompartido() {
+int* leerArrayCompartido() {
     struct stat msArrSt;
     int fileDesc = shm_open(MSARR_NAME, O_RDONLY, 0);
     if (fileDesc == -1) {
@@ -61,17 +64,49 @@ void recuperarArrayCompartido() {
         printf("Error al mapear el objeto compartido.\n");
         exit(EXIT_FAILURE);
     } 
-    printf("Valor en Memo Compartida: %d.\n", *ptr);
+    printf("Valor en Memo Compartida:.\n");
+    printArray(*ptr);
     close(fileDesc);
+    return ptr;
+}
+
+// Metodo que recibe un array de enteros y no inicializa
+// con valores aleatorios entre el rango [LOWER, UPPER]
+void initArray(int a[]) {
+	srand(time(0));
+	for (int i = 0 ; i < nElems ; i++) {
+		a[i] = (rand() % (UPPER - LOWER + 1) + LOWER);
+	}
+}
+
+// Metodo que recibe un arreglo e imprime su contenido
+void printArray(int arr[]) {
+	for (int i = 0 ; i < nElems ; i++) {
+		printf("%d ", arr[i]);
+	}
+	printf("\n");
 }
 
 // Metodo Main del programa
 // Para ejecutarlo utilizar el formato: ./MergeSort nElems
-int main() {
+int main(int argc, char *argv[]) {
+    // Pediremos la cantidad de elementos como argumento al ejecutar
+	if (argc != 2) {
+		printf("Para ejecutar el programa seguir el formato:\n");
+		printf("\t./MergeSort nElems\n");
+		printf("Siendo 'nElems' una cantidad entera de elementos.\n");
+		exit(EXIT_FAILURE);
+	}
+	// Se recibio el parametro de nElems correctamente
+	sscanf(argv[argc - 1], "%d", &nElems);
+    // Creamos un arreglo de nElems
+	arr = (int *) calloc(nElems, sizeof(int));
+    // Inicializar el arreglo de enteros aleatorios
+    initArray(arr);
     // Creando un FileDescriptor de memoria compartida
-    int fd = crearArrayCompartido(SIZE);
+    int fd = crearArrayCompartido(sizeof(arr));
     // Escribimos en la memoria compartida
-    escribirArrayCompartido();
+    escribirArrayCompartido(arr);
     // Cerramos el acceso o conexion el FileDescriptor
-    recuperarArrayCompartido();
+    leerArrayCompartido();
 }
