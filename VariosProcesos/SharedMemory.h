@@ -39,7 +39,7 @@ int crearArrayCompartido(int bSize) {
     return fileDesc;
 }
 
-void escribirArrayCompartido(int write) {
+void escribirArrayCompartido(int* write) {
     int fileDesc = shm_open(MSARR_NAME, O_RDWR, 0);
     int* ptr;
     if (fileDesc == -1) {
