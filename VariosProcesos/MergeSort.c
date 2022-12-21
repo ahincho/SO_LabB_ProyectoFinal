@@ -23,6 +23,7 @@ int crearArrayCompartido(int bSize) {
         printf("Error al reservar espacio para el objeto compartido.\n");
         exit(EXIT_FAILURE);
     }
+    close(fileDesc);
     return fileDesc;
 }
 
@@ -34,12 +35,32 @@ void escribirArrayCompartido() {
         printf("Error al recuperar el objeto compartido.\n");
         exit(EXIT_FAILURE);
     }
-    ptr = mmap(0, sizeof(int) , PROT_WRITE, MAP_SHARED, fileDesc, 0);
+    ptr = mmap(0, sizeof(int), PROT_WRITE, MAP_SHARED, fileDesc, 0);
     if (ptr == MAP_FAILED) {
         printf("Error al mapear el objeto compartido.\n");
         exit(EXIT_FAILURE);
     }
     memcpy(ptr, &i, sizeof(int));
+    close(fileDesc);
+}
+
+void recuperarArrayCompartido() {
+    struct stat msArrSt;
+    int fileDesc = shm_open(MSARR_NAME, 0_RDONLY, 0);
+    if (fileDesc == -1) {
+        printf("Error al recuperar el objeto compartido.\n");
+        exit(EXIT_FAILURE);
+    }
+    if (fstat(fileDesc, &mysarrSt) == -1) {
+        printf("Error al recuperar estructura msArrSt.\n");
+        exit(EXIT_FAILURE);
+    }
+    int* ptr = mmap(NULL, msArrSt.st_size, PROT_READ, MAP_SHARED, fileDesc, 0);
+    if (ptr == MAP_FAILED) {
+        printf("Error al mapear el objeto compartido.\n");
+        exit(EXIT_FAILURE);
+    } 
+    printf("Valor en Memo Compartida: %d.\n", ptr);
     close(fileDesc);
 }
 
@@ -51,5 +72,5 @@ int main() {
     // Escribimos en la memoria compartida
     escribirArrayCompartido();
     // Cerramos el acceso o conexion el FileDescriptor
-    close(fd);
+    recuperarArrayCompartido();
 }
