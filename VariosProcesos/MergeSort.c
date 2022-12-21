@@ -6,6 +6,7 @@
 # include <fcntl.h>
 # include <unistd.h>
 # include <sys/types.h>
+# include <string.h>
 # include <fcntl.h>
 
 # define MSARR_NAME "/mySharedArray"
