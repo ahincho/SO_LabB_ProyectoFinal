@@ -14,22 +14,19 @@
 # define N 10
 # define TERMINAL "/bin/ls"
 # define PORT 34
-# define PERMISSIONS 0600
-
-struct sharedArray {
-    int m[N];
-};
+# define PERMISSIONS
 
 int main() {
     key_t key = ftok(TERMINAL, PORT);
-    int shmid = shmget(key, sizeof(struct sharedArray), PERMISSIONS | IPC_CREAT);
+    printf("Size: %d\n", (int) sizeof(int) * N);
+    int shmid = shmget(key, (int) sizeof(int) * N, IPC_CREAT);
     printf("OK1\n");
-    struct sharedArray* arr = (struct sharedArray *) shmat(shmid, 0, 0);
+    int* arr = (int *) shmat(shmid, 0, 0);
     for (int i = 0 ; i < N ; i++) {
-        arr->m[i] = i;
+        arr[i] = i;
     }
     for (int i = 0 ; i < N ; i++) {
-        printf("%d ", arr->m[i]);
+        printf("%d ", arr[i]);
     }
     printf("\nSe escribio en memoria compartida!\n");
     shmdt((void *) arr);
