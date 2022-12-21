@@ -50,6 +50,7 @@ int main(int argc, char *argv[]) {
 	sscanf(argv[argc - 1], "%d", &nElems);
     // Creamos un arreglo de nElems
 	arr = (int *) calloc(nElems, sizeof(int));
+    int* b = (int *) calloc(nElems, sizeof(int));
     // Inicializar el arreglo de enteros aleatorios
     initArray(arr);
     // Creando un FileDescriptor de memoria compartida
@@ -57,6 +58,6 @@ int main(int argc, char *argv[]) {
     // Escribimos en la memoria compartida
     escribirArrayCompartido(arr);
     // Cerramos el acceso o conexion el FileDescriptor
-    int* b = leerArrayCompartido();
+    b = leerArrayCompartido();
     printArray(b);
 }
