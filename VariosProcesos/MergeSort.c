@@ -34,12 +34,12 @@ void escribirArrayCompartido() {
         printf("Error al recuperar el objeto compartido.\n");
         exit(EXIT_FAILURE);
     }
-    ptr = nmap(0, sizeof(int) , PROT_WRITE, MAP_SHARED, fileDesc, 0);
+    ptr = mmap(0, sizeof(int) , PROT_WRITE, MAP_SHARED, fileDesc, 0);
     if (ptr == MAP_FAILED) {
         printf("Error al mapear el objeto compartido.\n");
         exit(EXIT_FAILURE);
     }
-    memcpy(ptr, i, sizeof(buf));
+    memcpy(ptr, i, sizeof(int));
     close(fileDesc);
 }
 
