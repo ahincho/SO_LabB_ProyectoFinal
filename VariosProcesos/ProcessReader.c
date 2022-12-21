@@ -8,7 +8,6 @@
 *   la variable compartida entre los procesos 'mySharedArray'
 */
 
-# include <stdio.h>
 # include <sys/ipc.h>
 # include <sys/shm.h>
 # include <stdio.h>
@@ -18,7 +17,7 @@
 
 int main() {
     key_t key = ftok(TERMINAL, PORT);
-    int shmid = shmget(key, sizeof(int *) * N, IPC_EXCL);
+    int shmid = shmget(key, sizeof(int) * N, IPC_EXCL);
     int* arr = shmat(shmid, NULL, 0);
     for (int i = 0 ; i < N ; i++) {
         printf("%d \n", arr[i]);

@@ -8,12 +8,10 @@
 *   la variable compartida entre los procesos 'mySharedArray'
 */
 
-# include <stdio.h>
 # include <sys/ipc.h>
 # include <sys/shm.h>
 # include <stdio.h>
 # define N 10
-# define PERMISSIONS 00666
 # define TERMINAL "/bin/ls"
 # define PORT 34
 
