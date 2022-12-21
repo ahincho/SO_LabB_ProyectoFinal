@@ -86,7 +86,7 @@ int* leerArrayCompartido() {
         exit(EXIT_FAILURE);
     } 
     printf("Valor en Memo Compartida:.\n");
-    printArray(*ptr);
+    printArray(ptr);
     close(fileDesc);
     return ptr;
 }
