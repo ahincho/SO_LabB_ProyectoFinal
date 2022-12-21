@@ -18,11 +18,10 @@
 int main() {
     key_t key = ftok(TERMINAL, PORT);
     int shmid = shmget(key, sizeof(int) * N, IPC_EXCL);
-    int* arr = shmat(shmid, NULL, 0);
+    int* arr = shmat(shmid, 0, SHM_RDONLY);
     for (int i = 0 ; i < N ; i++) {
         printf("%d \n", arr[i]);
     }
     shmdt((void *) arr);
-    shmctl(shmid, IPC_RMID, NULL);
     return 0;
 }
