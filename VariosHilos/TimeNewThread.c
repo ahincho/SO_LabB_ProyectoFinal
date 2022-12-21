@@ -1,7 +1,11 @@
 
 /*
 * @Autor: Hincho Jove, Angel Eduardo
+* @Autor: Neira Carrasco, Darwin Jesus
+* @Autor: Tacca Apaza, Nohelia Estefhania
 * @Email: ahincho@unsa.edu.pe
+* @Email: dneirac@unsa.edu.pe
+* @Email: ntacca@unsa.edu.pe
 * @File: MergeSort.c
 * @Descripcion: Algoritmo MergeSort con Varios Hilos
 */

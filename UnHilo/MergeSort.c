@@ -1,8 +1,10 @@
 /*
-* @Autor: Neira Carrasco, Darwin
 * @Autor: Hincho Jove, Angel Eduardo
-* @Email: dneirac@unsa.edu.pe
+* @Autor: Neira Carrasco, Darwin
+* @Autor: Tacca Apaza, Nohelia Estefhania
 * @Email: ahincho@unsa.edu.pe
+* @Email: dneirac@unsa.edu.pe
+* @Email: ntacca@unsa.edu.pe
 * @File: MergeSort.c
 * @Descripcion: Algoritmo MergeSort Recursivo
 */
