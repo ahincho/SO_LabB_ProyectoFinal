@@ -5,3 +5,5 @@
 *.o
 MergeSort
 TimeNewThread
+ProcessWritter
+ProcessReader
