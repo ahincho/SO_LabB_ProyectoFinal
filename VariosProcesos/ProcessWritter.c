@@ -17,6 +17,7 @@
 
 int main() {
     key_t key = ftok(TERMINAL, PORT);
+    printf("Size: %d\n", sizeof(int) * N);
     int shmid = shmget(key, sizeof(int) * N, IPC_CREAT);
     int* arr = (int *) shmat(shmid, 0, 0);
     for (int i = 0 ; i < N ; i++) {
