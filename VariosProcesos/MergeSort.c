@@ -39,7 +39,7 @@ void escribirArrayCompartido() {
         printf("Error al mapear el objeto compartido.\n");
         exit(EXIT_FAILURE);
     }
-    memcpy(ptr, i, sizeof(int));
+    memcpy(ptr, &i, sizeof(int));
     close(fileDesc);
 }
 
