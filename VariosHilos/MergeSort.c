@@ -109,6 +109,8 @@ void mergeSort(int arr[], int l, int m, int r) {
 	pthread_mutex_unlock(&mutex);
 }
 
+// Metodo que nos ayuda a crear un nuevo hilo que reemplazara
+// las llamadas recursivas que se hacen al metodo MergeSort
 void* hiloMerge(void* args) {
 	// Recibiendo el parametro que contiene los indices
 	struct indices* p = (struct indices *) args;

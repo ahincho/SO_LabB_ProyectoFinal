@@ -8,9 +8,9 @@
 *   la variable compartida entre los procesos 'mySharedArray'
 */
 
+# include "./SharedMemory.h"
+# include <stdio.h>
 # include <sys/mman.h>
-# include "SharedMemory.h"
-
 # define LOWER 0
 # define UPPER 10
 
