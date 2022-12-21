@@ -18,7 +18,7 @@
 
 int main() {
     int key = ftok("./bin/ls", PORT);
-    int shimd = shmget(key, sizeof(int) * N, PERMISSIONS | IPC_CREAT);
+    int shmid = shmget(key, sizeof(int) * N, PERMISSIONS | IPC_CREAT);
     int* arr = (int *) shmat(shmid, NULL, 0);
     for (int i = 0 ; i < N ; i++) {
         arr[i] = i;
