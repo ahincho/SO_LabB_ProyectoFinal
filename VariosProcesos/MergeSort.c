@@ -6,7 +6,7 @@
 # include <fcntl.h>
 # include <unistd.h>
 # include <sys/types.h>
-# include <string.h>
+# include <fcntl.h>
 
 # define MSARR_NAME "/mySharedArray"
 # define PERMISSIONS 00600
@@ -46,7 +46,7 @@ void escribirArrayCompartido() {
 
 void recuperarArrayCompartido() {
     struct stat msArrSt;
-    int fileDesc = shm_open(MSARR_NAME, 0_RDONLY, 0);
+    int fileDesc = shm_open(MSARR_NAME, O_RDONLY, 0);
     if (fileDesc == -1) {
         printf("Error al recuperar el objeto compartido.\n");
         exit(EXIT_FAILURE);
